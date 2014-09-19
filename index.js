@@ -1,7 +1,8 @@
+var attach = require('rtc-core/attachstream');
 var _cached = {};
 
 /**
-  # capsnap
+  # snapstream
 
   A small module for taking a stream and returning a base64 encoded string of the
   stream at the time.
@@ -14,45 +15,26 @@ var _cached = {};
 module.exports = function(stream, opts, callback) {
   var video;
 
-  function captureFrame() {
-    var canvas = getCachedCanvas(video);
-    var context = canvas.getContext('2d');
-
-    video.removeEventListener('canplay', captureFrame);
-    video.removeEventListener('loadedmetadata', captureFrame);
-    video.play();
-
-    context.drawImage(video, 0, 0);
-    callback(null, canvas.toDataURL('image/jpeg'));
-  }
-
   if (typeof opts == 'function') {
     callback = opts;
     opts = {};
   }
 
   video = (opts || {}).video || createVideoElement();
+  attach(stream, video, function(err) {
+    var canvas;
+    var context;
 
-  // check for srcObject
-  if (typeof video.srcObject != 'undefined') {
-    video.srcObject = stream;
-  }
-  // check for mozSrcObject
-  else if (typeof video.mozSrcObject != 'undefined') {
-    video.mozSrcObject = stream;
-  }
-  else {
-    video.src = URL ? URL.createObjectURL(stream) : stream;
-  }
+    if (err) {
+      return callback(err);
+    }
 
-  // if the video is ready now, then capture the frame
-  if (video.readyState >= 3) {
-    return captureFrame();
-  }
-  else {
-    video.addEventListener('canplay', captureFrame, false);
-    video.addEventListener('loadedmetadata', captureFrame, false);
-  }
+    canvas = getCachedCanvas(video);
+    context = canvas.getContext('2d');
+
+    context.drawImage(video, 0, 0);
+    callback(null, canvas.toDataURL('image/jpeg'));
+  });
 };
 
 function createVideoElement() {
