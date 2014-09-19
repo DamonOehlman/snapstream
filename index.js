@@ -1,4 +1,4 @@
-var attach = require('rtc-core/attachstream');
+var attachstream = require('rtc-core/attachstream');
 var _cached = {};
 
 /**
@@ -21,7 +21,7 @@ module.exports = function(stream, opts, callback) {
   }
 
   video = (opts || {}).video || createVideoElement();
-  attach(stream, video, function(err) {
+  attachstream(stream, video, function(err) {
     var canvas;
     var context;
 
