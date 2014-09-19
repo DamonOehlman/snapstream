@@ -6,6 +6,10 @@ var _cached = {};
   A small module for taking a stream and returning a base64 encoded string of the
   stream at the time.
 
+  ## Example Usage
+
+  <<< examples/simple.js
+
 **/
 module.exports = function(stream, opts, callback) {
   var video;
