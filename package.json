@@ -1,0 +1,23 @@
+{
+  "name": "capsnap",
+  "version": "1.0.0",
+  "description": "Capture base64 image data for an input MediaStream containing video track information",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DamonOehlman/capsnap.git"
+  },
+  "keywords": [
+    "mediacapture",
+    "media"
+  ],
+  "author": "Damon Oehlman <damon.oehlman@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DamonOehlman/capsnap/issues"
+  },
+  "homepage": "https://github.com/DamonOehlman/capsnap"
+}
