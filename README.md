@@ -1,4 +1,4 @@
-# capsnap
+# snapstream
 
 A small module for taking a stream and returning a base64 encoded string of the
 stream at the time.
@@ -11,7 +11,7 @@ stream at the time.
 ## Example Usage
 
 ```js
-var capsnap = require('capsnap');
+var snapstream = require('capsnap');
 var getUserMedia = require('getusermedia');
 
 getUserMedia({ video: true, audio: true }, function(err, stream) {
@@ -19,7 +19,7 @@ getUserMedia({ video: true, audio: true }, function(err, stream) {
     return console.error('Could not capture stream: ', err);
   }
 
-  capsnap(stream, function(err, imageData) {
+  snapstream(stream, function(err, imageData) {
     if (err) {
       return console.error(err);
     }
