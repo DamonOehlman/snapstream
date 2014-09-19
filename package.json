@@ -1,5 +1,5 @@
 {
-  "name": "capsnap",
+  "name": "snapstream",
   "version": "1.0.0",
   "description": "Capture base64 image data for an input MediaStream containing video track information",
   "main": "index.js",
