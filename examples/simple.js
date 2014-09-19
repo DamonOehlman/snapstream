@@ -11,6 +11,6 @@ getUserMedia({ video: true, audio: true }, function(err, stream) {
       return console.error(err);
     }
 
-    console.log('got image data: ', imageData);
+    console.log('got image data: ', imageData, imageData.length);
   });
 });
