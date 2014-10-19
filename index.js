@@ -1,5 +1,8 @@
-var attachstream = require('rtc-core/attachstream');
+var attach = require('rtc-attach');
 var _cached = {};
+var extend = require('cog/extend');
+var kgo = require('kgo');
+var canplay = require('canplay');
 
 /**
   # snapstream
@@ -13,36 +16,26 @@ var _cached = {};
 
 **/
 module.exports = function(stream, opts, callback) {
-  var video;
-
   if (typeof opts == 'function') {
     callback = opts;
     opts = {};
   }
 
-  video = (opts || {}).video || createVideoElement();
-  attachstream(stream, video, function(err) {
-    var canvas;
-    var context;
-
-    if (err) {
-      return callback(err);
-    }
-
-    canvas = getCachedCanvas(video);
-    context = canvas.getContext('2d');
+  kgo({
+    stream: stream,
+    opts: extend({ muted: true }, opts)
+  })
+  ('attach', ['stream', 'opts'], attach)
+  ('renderable', ['attach'], canplay)
+  ('capture', ['renderable'], function(video) {
+    var canvas = getCachedCanvas(video);
+    var context = canvas.getContext('2d');
 
     context.drawImage(video, 0, 0);
     callback(null, canvas.toDataURL('image/jpeg'));
-  });
+  })
+  .on('error', callback);
 };
-
-function createVideoElement() {
-  var el = document.createElement('video');
-
-  el.setAttribute('muted', 'muted');
-  return el;
-}
 
 function getCachedCanvas(video) {
   var key = video.videoWidth + '|' + video.videoHeight;
