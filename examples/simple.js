@@ -1,16 +1,13 @@
 var snapstream = require('..');
 var getUserMedia = require('getusermedia');
+var kgo = require('kgo');
 
-getUserMedia({ video: true, audio: true }, function(err, stream) {
-  if (err) {
-    return console.error('Could not capture stream: ', err);
-  }
-
-  snapstream(stream, function(err, imageData) {
-    if (err) {
-      return console.error(err);
-    }
-
-    console.log('got image data: ', imageData, imageData.length);
-  });
-});
+kgo({
+  constraints: { video: true, audio: true }
+})
+('capture', ['constraints'], getUserMedia)
+('snap', ['capture'], snapstream)
+('processImage', ['snap'], function(imageData) {
+  console.log('got image data: ', imageData, imageData.length);
+})
+.on('error', console.error.bind(console));
