@@ -21,7 +21,12 @@
     "url": "https://github.com/DamonOehlman/capsnap/issues"
   },
   "homepage": "https://github.com/DamonOehlman/capsnap",
-  "dependencies": {},
+  "dependencies": {
+    "canplay": "^1.0.0",
+    "cog": "^1.0.0",
+    "kgo": "^1.2.0",
+    "rtc-attach": "^1.2.1"
+  },
   "devDependencies": {
     "getusermedia": "^1.0.0"
   }
