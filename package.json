@@ -25,7 +25,8 @@
     "canplay": "^1.0.0",
     "cog": "^1.0.0",
     "kgo": "^1.2.0",
-    "rtc-attach": "^1.2.1"
+    "rtc-attach": "^1.2.1",
+    "snapvid": "^1.0.0"
   },
   "devDependencies": {
     "getusermedia": "^1.0.0"
