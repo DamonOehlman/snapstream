@@ -14,14 +14,16 @@ stream at the time.
 var snapstream = require('snapstream');
 var getUserMedia = require('getusermedia');
 var kgo = require('kgo');
+var h = require('hyperscript');
 
 kgo({
-  constraints: { video: true, audio: true }
+  constraints: { video: true, audio: false }
 })
 ('capture', ['constraints'], getUserMedia)
 ('snap', ['capture'], snapstream)
 ('processImage', ['snap'], function(imageData) {
   console.log('got image data: ', imageData, imageData.length);
+  document.body.appendChild(h('img', { src: imageData }));
 })
 .on('error', console.error.bind(console));
 
@@ -31,7 +33,7 @@ kgo({
 
 ### MIT
 
-Copyright (c) 2014 Damon Oehlman <damon.oehlman@gmail.com>
+Copyright (c) 2015 Damon Oehlman <damon.oehlman@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
