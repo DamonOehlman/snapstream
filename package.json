@@ -29,6 +29,7 @@
     "snapvid": "^1.0.0"
   },
   "devDependencies": {
-    "getusermedia": "^1.0.0"
+    "getusermedia": "^1.0.0",
+    "hyperscript": "^1.4.3"
   }
 }
