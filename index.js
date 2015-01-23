@@ -3,6 +3,7 @@ var _cached = {};
 var extend = require('cog/extend');
 var kgo = require('kgo');
 var canplay = require('canplay');
+var snapvid = require('snapvid');
 
 /**
   # snapstream
@@ -28,24 +29,7 @@ module.exports = function(stream, opts, callback) {
   ('attach', ['stream', 'opts'], attach)
   ('renderable', ['attach'], canplay)
   ('capture', ['renderable'], function(video) {
-    var canvas = getCachedCanvas(video);
-    var context = canvas.getContext('2d');
-
-    context.drawImage(video, 0, 0);
-    callback(null, canvas.toDataURL('image/jpeg'));
+    callback(null, snapvid(video, opts));
   })
   .on('error', callback);
 };
-
-function getCachedCanvas(video) {
-  var key = video.videoWidth + '|' + video.videoHeight;
-  var canvas = _cached[key];
-
-  if (! canvas) {
-    canvas = _cached[key] = document.createElement('canvas');
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-  }
-
-  return canvas;
-}
